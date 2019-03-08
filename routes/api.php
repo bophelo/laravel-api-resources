@@ -3,6 +3,8 @@
 use Illuminate\Http\Request;
 use App\User;
 use App\Http\Resources\UserResource;
+use App\Http\Resources\TopicResource;
+use App\Topic;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -20,4 +22,8 @@ use App\Http\Resources\UserResource;
 
 Route::get('/users/{user}', function( User $user) {
     return new UserResource($user);
+});
+
+Route::get('/topics/{user}', function( Topic $topic) {
+    return TopicResource::collection(Topic::get());
 });

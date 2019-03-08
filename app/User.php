@@ -25,8 +25,10 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password', 'remember_token', 'created_at'
     ];
+
+    protected $appends = ['humanCreatedAt'];
 
     /**
      * The attributes that should be cast to native types.
@@ -36,4 +38,9 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function getHumanCreatedAtAttribute() 
+    {
+        return $this->created_at->diffForHumans();
+    }
 }

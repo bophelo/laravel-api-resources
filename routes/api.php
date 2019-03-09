@@ -28,3 +28,12 @@ Route::get('/users/{user}', function( User $user) {
 Route::get('/topics/{user}', function( Topic $topic) {
     return new TopicCollection(Topic::get());
 });
+
+Route::get('/login', function( User $user) {
+    $token = 'abc';
+    return (new UserResource(User::find(1)))->additional([
+        'meta' => [
+            'token' => $token
+        ]
+    ]);
+});

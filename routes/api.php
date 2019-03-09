@@ -5,6 +5,7 @@ use App\User;
 use App\Http\Resources\UserResource;
 use App\Http\Resources\TopicResource;
 use App\Topic;
+use App\Http\Resources\TopicCollection;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -25,5 +26,5 @@ Route::get('/users/{user}', function( User $user) {
 });
 
 Route::get('/topics/{user}', function( Topic $topic) {
-    return TopicResource::collection(Topic::get());
+    return new TopicCollection(Topic::get());
 });

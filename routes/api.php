@@ -26,6 +26,10 @@ Route::get('/users/{user}', function( User $user) {
 });
 
 Route::get('/topics/{user}', function( Topic $topic) {
+    return new TopicCollection(Topic::paginate(3));
+});
+
+Route::get('/topics', function( Topic $topic) {
     return new TopicCollection(Topic::get());
 });
 

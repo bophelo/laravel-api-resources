@@ -21,19 +21,23 @@ use App\Http\Resources\TopicCollection;
     return $request->user();
 });*/
 
-Route::get('/users/{user}', function( User $user) {
+Route::get('/users/{user}', function (User $user) {
     return new UserResource($user);
 });
 
-Route::get('/topics/{user}', function( Topic $topic) {
+Route::get('/topics/{user}', function (Topic $topic) {
     return new TopicCollection(Topic::paginate(3));
 });
 
-Route::get('/topics', function( Topic $topic) {
-    return new TopicCollection(Topic::get());
+/*DB::listen(function ($query) {
+    var_dump($query->sql);
+});*/
+
+Route::get('/topics', function (Topic $topic) {
+    return new TopicCollection(Topic::with(['user', 'posts', 'posts.user'])->get());
 });
 
-Route::get('/login', function( User $user) {
+Route::get('/login', function (User $user) {
     $token = 'abc';
     return (new UserResource(User::find(1)))->additional([
         'meta' => [
